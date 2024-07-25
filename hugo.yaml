@@ -4,10 +4,11 @@ title: Ramanuj
 theme: ["PaperMod"]
 params:
   defaultTheme: dark
+  showFeaturedPosts: true
   homeInfoParams:
     Title: "Hi there \U0001F44B"
     Content: >-
-      Welcome to my blog.      
+      Welcome to my Kubernetes blog! By subscribing, you'll get real, hands-on insights from my journey with Kubernetes. I share practical tips, tutorials, and lessons learned from real-world projects. Let's dive into Kubernetes together and make the most of this powerful technology!      
   socialIcons:
     - name: email
       url: 'mailto:contact@ramanuj.dev'
@@ -27,4 +28,8 @@ menu:
   - identifier: posts
     name: Blog
     url: /posts/
-    weight: 20
+    weight: 20    
+  - identifier: about
+    name: About
+    url: /about/about-me
+    weight: 30
