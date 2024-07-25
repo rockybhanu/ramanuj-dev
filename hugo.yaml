@@ -31,5 +31,5 @@ menu:
     weight: 20    
   - identifier: about
     name: About
-    url: /about/about-me
+    url: /about/about-me/
     weight: 30
