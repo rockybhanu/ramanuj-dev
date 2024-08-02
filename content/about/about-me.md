@@ -14,7 +14,7 @@ In my free time, I enjoy reading, swimming, and listening to music. I am also a 
 
 Below are some snapshots from my life:
 
-![Family Outing](/assets/family.svg)
+![Family Outing](/assets/family-outing.jpg)
 
 Thank you for visiting my blog. I hope you find my practical guides and tutorial articles helpful and informative.
 
