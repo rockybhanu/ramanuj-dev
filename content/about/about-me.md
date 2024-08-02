@@ -1,10 +1,8 @@
 ---
 title: "About Me"
 date: 2024-07-26
-description: "Learn more about Ramanuj, a seasoned software developer and cloud engineer."
+description: "A seasoned software developer and SRE."
 ---
-
-# About Me
 
 Hello, I'm Ramanuj, a software developer by hobby and a seasoned Linux and Kubernetes administrator. Throughout my career in infrastructure engineering, I have taken on multiple roles, including Linux Administrator, Kubernetes Administrator, Site Reliability Engineer (SRE), DevOps Engineer, and Cloud Engineer.
 
@@ -16,8 +14,7 @@ In my free time, I enjoy reading, swimming, and listening to music. I am also a 
 
 Below are some snapshots from my life:
 
-![Family Outing](path/to/family-photo.jpg)
-![Exploring Places](path/to/exploring-photo.jpg)
+![Family Outing](/assets/family.svg)
 
 Thank you for visiting my blog. I hope you find my practical guides and tutorial articles helpful and informative.
 
@@ -34,5 +31,3 @@ If you have any questions or would like to connect, feel free to reach out!
 - GitHub: [Your GitHub Profile](https://github.com/rockybhanu/)
 
 ---
-
-*Note: Replace `path/to/family-photo.jpg` and `path/to/exploring-photo.jpg` with the actual paths to your photos.*
