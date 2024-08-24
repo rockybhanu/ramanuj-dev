@@ -36,10 +36,6 @@ This command sets up the necessary Custom Resource Definitions (CRDs) and deploy
 
 > **Note:** It's a good practice to use the latest version of the Strimzi operator. While this guide is compatible with the latest updates, staying current ensures you benefit from improvements in Kafka binaries and cluster management capabilities.
 
----
-
-### Conclusion
-
 With the Strimzi operator installed, you're now ready to move on to setting up a Kafka cluster. The operator will help manage the complexity of Kafka deployment, scaling, and maintenance within your Kubernetes environment.
 
 ---
@@ -200,5 +196,109 @@ spec:
 > **Ensure** you have enough memory and CPU resources available as specified in the StatefulSet. Adjust these values if necessary to fit your environment.
 
 Now that PostgreSQL is set up, it is ready to accept connections from Debezium for change data capture (CDC).
+
+---
+
+### Step 3: Setting Up OpenSearch and OpenSearch Dashboard on Kubernetes
+
+In this step, we will set up OpenSearch and OpenSearch Dashboard, which will serve as our search and visualization tool for data ingested from PostgreSQL. OpenSearch, an open-source fork of Elasticsearch by AWS, and OpenSearch Dashboard (forked from Kibana) will help us perform real-time search and analytics on our data.
+
+#### 3.1 Create a Namespace for OpenSearch
+
+To organize our Kubernetes resources, we'll create a dedicated namespace for OpenSearch and OpenSearch Dashboard. Run the following command to create the `opensearch` namespace:
+
+```bash
+kubectl create ns opensearch
+```
+
+#### 3.2 Install OpenSearch Using Helm
+
+Using Helm, the Kubernetes package manager, provides a straightforward way to deploy OpenSearch on our cluster. Helm charts simplify the deployment process by packaging all necessary Kubernetes resources and configurations.
+
+1. **Add the OpenSearch Helm Repository**:
+
+   First, make sure you have access to the OpenSearch Helm charts. You can find more information on how to use Helm with OpenSearch [here](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/helm/).
+
+2. **Configure Persistence**:
+
+   OpenSearch requires persistent storage for indexing and data storage. Update the persistence section in the Helm chart's `values.yaml` file. You can find more configuration options in the [OpenSearch Helm chart repository](https://github.com/opensearch-project/helm-charts/tree/main/charts/opensearch).
+
+   Here's an example configuration snippet for persistence:
+
+   ```yaml
+   persistence:
+     enabled: true
+     size: 100Gi
+     storageClass: rook-cephfs-retain-fs
+   ```
+
+3. **Install OpenSearch**:
+
+   Use the following command to install OpenSearch using Helm:
+
+   ```bash
+   helm install opensearch opensearch --set extraEnvs[0].name=OPENSEARCH_INITIAL_ADMIN_PASSWORD,extraEnvs[0].value=<YOUR_OPENSEARCH_ADMIN_PASSWORD> -n opensearch
+   ```
+
+   Replace `<YOUR_OPENSEARCH_ADMIN_PASSWORD>` with your desired admin password. This command will deploy OpenSearch with default settings, and you can customize it by modifying the `values.yaml` file according to your requirements.
+
+#### 3.3 Install OpenSearch Dashboard Using Helm
+
+Now, let's set up the OpenSearch Dashboard to visualize our data. OpenSearch Dashboard is a powerful tool for creating visualizations and monitoring data in real-time.
+
+1. **Configure Ingress for OpenSearch Dashboard**:
+
+   Unlike OpenSearch, the dashboard doesn't need persistent storage. Instead, you'll most likely access it via a web interface, so configuring an ingress resource is essential. Below is an example configuration for `values.yaml` to enable ingress:
+
+   ```yaml
+   ingress:
+     enabled: true
+     ingressClassName: nginx
+     annotations:
+       cert-manager.io/cluster-issuer: letsencrypt-prod
+     hosts:
+       - host: opensearch.ramanuj.dev
+         paths:
+           - path: /
+     tls:
+       - secretName: opensearch-dashboard-tls
+         hosts:
+           - opensearch.ramanuj.dev
+   ```
+
+   Adjust the hostname and TLS settings according to your environment. This setup allows you to access the dashboard securely over HTTPS.
+
+2. **Install OpenSearch Dashboard**:
+
+   Use the Helm command below to install OpenSearch Dashboard, pointing to the OpenSearch service:
+
+   ```bash
+   helm install opensearch-dashboard opensearch-dashboard --set opensearchHosts="https://opensearch-cluster-master:9200" -n opensearch
+   ```
+
+   This command installs OpenSearch Dashboard and configures it to connect to the OpenSearch instance running in the same namespace.
+
+#### 3.4 Access OpenSearch Dashboard
+
+Wait a few moments for all the services to start. You can check the status of your pods, PVCs, services, and ingress using the following commands:
+
+```bash
+kubectl get pods -n opensearch
+kubectl get pvc -n opensearch
+kubectl get svc -n opensearch
+kubectl get ingress -n opensearch
+```
+
+Once everything is up and running, access the OpenSearch Dashboard via the configured URL:
+
+```text
+https://opensearch.ramanuj.dev
+```
+
+Replace the URL with your actual ingress hostname. If you see the OpenSearch Dashboard login screen, congratulations! You've successfully set up OpenSearch and OpenSearch Dashboard.
+
+---
+
+With OpenSearch and OpenSearch Dashboard set up, you are now equipped to visualize and analyze real-time data streams. Next, we'll configure Debezium and Kafka Connect to capture changes from PostgreSQL and send them to OpenSearch.
 
 ---
