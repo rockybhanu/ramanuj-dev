@@ -1,0 +1,51 @@
+# Hugo specific files
+/public/
+/resources/
+/hugo_stats.json
+*.hugo_build.lock
+!.gitignore
+
+# Logs and OS generated files
+*.log
+*.swp
+.DS_Store
+Thumbs.db
+
+# Node modules (if using Node.js for asset pipelines)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Temporary files and caches
+.cache/
+*.tmp
+*.temp
+
+# Go-specific files
+/go/
+/bin/
+/pkg/
+/coverage.out
+*.test
+
+# VSCode settings
+.vscode/
+/.vscode/settings.json
+
+# IDE and Editor directories
+.idea/
+/*.iml
+*.sublime-project
+*.sublime-workspace
+*.vscode
+
+# System files
+*.bak
+*.orig
+*.rej
+*.swo
+*.swp
+*~
+\#*\#
