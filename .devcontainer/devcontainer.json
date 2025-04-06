@@ -1,0 +1,7 @@
+{
+  "name": "Hugo Dev Container (Live Reload)",
+  "dockerFile": "Dockerfile",
+  "appPort": ["1313:1313"],
+  "workspaceFolder": "/workspaces/ramanuj-dev",
+  "overrideCommand": false
+}
