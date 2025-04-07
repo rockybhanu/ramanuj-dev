@@ -7,7 +7,7 @@ RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hug
     rm hugo_${HUGO_VERSION}_linux-amd64.tar.gz
 WORKDIR /src
 COPY . /src
-RUN git submodule update --init --recursive
+#RUN git submodule update --init --recursive
 RUN hugo --minify
 FROM nginx:alpine
 RUN addgroup -S hugo && adduser -S hugo -G hugo
