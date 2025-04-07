@@ -4,7 +4,7 @@
 /hugo_stats.json
 *.hugo_build.lock
 !.gitignore
-
+secrets.txt
 # Logs and OS generated files
 *.log
 *.swp

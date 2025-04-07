@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/jkfillpack:${{ env.GIT_SHA_SHORT }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ramanuj:${{ env.GIT_SHA_SHORT }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
@@ -64,5 +64,5 @@ jobs:
   
       - name: Update Kubernetes deployment
         run: |
-          kubectl set image deployment/website jkfillpack=${{ secrets.DOCKERHUB_USERNAME }}/jkfillpack:${{ env.GIT_SHA_SHORT }} -n jkfillpack-in
-          kubectl rollout status deployment/website -n jkfillpack-in
+          kubectl set image deployment/website ramanuj=${{ secrets.DOCKERHUB_USERNAME }}/ramanuj:${{ env.GIT_SHA_SHORT }} -n ramanuj
+          kubectl rollout status deployment/website -n ramanuj

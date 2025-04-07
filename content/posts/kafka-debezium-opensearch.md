@@ -494,8 +494,8 @@ spec:
   build:
     output:
       type: docker
-      image: padminisys/ramanuj-db-opensearch-connector:v1
-      pushSecret: docker-padminisys-secret
+      image: ramanujdev/ramanuj-db-opensearch-connector:v1
+      pushSecret: docker-ramanujdev-secret
     plugins:
       - name: debezium-postgres-connector
         artifacts:
